@@ -1,23 +1,46 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/rJQOpS94)
-### starter_code
-Activity: 1. Implement a Remote Procedure Call (RPC) framework using Python.
-Your implementation must support the remote invocation of:
-int add(int a, int b)
-int multiply(int a, int b)
+# Lab DA-1: RPC Framework with Object Marshalling
 
-2. You must submit a Pull Request answering the question:
+## Objective
+Implemented a Remote Procedure Call (RPC) framework in Python
+to remotely invoke:
 
-Write a python script to measure the latency (in milliseconds) of:
-A local function call.
-A remote RPC call.
-- A PR containing a results.md file with a table comparing the two.
+    float calculate_grade_average(StudentProfile profile)
 
-How to Submit:-
-Create a Branch: git checkout -b feature-name
+## Implementation Details
+input was-name="Jesna Binu Mancherikalam",
+        id=1,
+        grades=[98, 86, 95]
 
-Commit Changes: git commit -m "Brief description of work"
+### StudentProfile Object
+Contains:
+- name (string)
+- id (integer)
+- grades (list of integers)
 
-Push to GitHub: git push origin feature-name
+### Marshalling Layer
+The marshalling layer:
+- Serializes objects into JSON
+- Validates incoming data using validate_types()
+- Raises TypeError if incorrect data types are received
 
-Open a PR: Go to GitHub and click "New Pull Request". Target your main branch.
-Tag the Instructor: Mention @manoov in the PR comment.
+### Type Validation
+The validate_types() function checks:
+- name is string
+- id is integer
+- grades is list
+- each grade is integer
+
+If any mismatch occurs, a TypeError is raised.
+
+### RPC Workflow
+Client → JSON serialization → Transport → Server → Validation → Execution → JSON Response
+
+### Example Output
+Average: 80.0
+
+## Conclusion
+Successfully implemented RPC with:
+- Object marshalling
+- Server-side validation
+- Clean architecture
+- Error handling
