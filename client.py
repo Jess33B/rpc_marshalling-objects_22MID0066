@@ -1,19 +1,16 @@
-import socket
-from rpc_runtime import send_msg, recv_msg
-
-def rpc_call(method, params):
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.connect(("localhost", 5000))
-
-    send_msg(sock, {
-        "method": method,
-        "params": params
-    })
-
-    response = recv_msg(sock)
-    sock.close()
-    return response["result"]
+from models import StudentProfile
+from transport import send_request
 
 if __name__ == "__main__":
-    print("Add:", rpc_call("add", [3, 4]))
-    print("Multiply:", rpc_call("multiply", [3, 4]))
+    profile = StudentProfile(
+        name="Jesna Binu Mancherikalam",
+        id=1,
+        grades=[98, 86, 95]
+    )
+
+    response = send_request(
+        "calculate_grade_average",
+        profile.to_dict()
+    )
+
+    print("Average:", response["result"])
